@@ -1,0 +1,17 @@
+{
+  "R-SLA-01": { "name": "P0 Critical Value SLA", "type": "SLA", "description": "P0_critical cases must be routed within 15 minutes", "action_on_fail": "escalate_immediately" },
+  "R-SLA-02": { "name": "P1 Urgent SLA", "type": "SLA", "description": "P1_urgent cases must be routed within 60 minutes", "action_on_fail": "flag_at_risk" },
+  "R-SLA-03": { "name": "Result TAT Window", "type": "SLA", "description": "Guardant360 standard TAT = 7 business days; SHIELD = 10 days", "action_on_fail": "flag_overdue" },
+  "R-ELG-01": { "name": "Re-draw Eligibility", "type": "Eligibility", "description": "Re-draw eligible if: < 30 days since original draw AND patient has valid active insurance", "action_on_fail": "surface_ineligibility" },
+  "R-ELG-02": { "name": "PA Required Check", "type": "Eligibility", "description": "PA required for all commercial payer orders > $3,000 list price", "action_on_fail": "route_to_pa_team" },
+  "R-ELG-03": { "name": "Critical Value — SHIELD", "type": "Clinical", "description": "SHIELD positive signal qualifies as P0_critical requiring physician acknowledgment within 24 hours", "action_on_fail": "route_to_critical_escalation" },
+  "R-ELG-04": { "name": "Critical Value — G360 Actionable Mutation", "type": "Clinical", "description": "G360 with actionable mutation (EGFR, ALK, ROS1, BRAF, KRAS G12C) qualifies as P1_urgent minimum", "action_on_fail": "prioritize_clinical_support" },
+  "R-ORD-01": { "name": "Required Order Fields", "type": "Completeness", "description": "Required: patient_name, DOB, ordering_physician_NPI, ICD-10_code, specimen_type, insurance_id", "action_on_fail": "list_missing_fields" },
+  "R-ORD-02": { "name": "Physician NPI Validation", "type": "Completeness", "description": "Ordering physician NPI must be 10 digits", "action_on_fail": "flag_invalid_npi" },
+  "R-AUT-01": { "name": "Auto-Resolution Gate", "type": "Safety", "description": "auto_resolvable = true ONLY IF: all confidences >= 0.80 AND case_type != P0_critical AND no critical rules failed", "action_on_fail": "force_human_review" },
+  "R-AUT-02": { "name": "P0 Hard Stop", "type": "Safety", "description": "P0_critical cases NEVER auto-resolve regardless of any other factor", "action_on_fail": "force_critical_escalation" },
+  "R-CNF-01": { "name": "Low Confidence Escalation", "type": "Quality", "description": "If any single step confidence < 0.75, case requires human review", "action_on_fail": "set_human_review_required" },
+  "R-PA-01":  { "name": "PA Stale Status", "type": "PA", "description": "PA submitted > 10 business days ago with no status update is considered stale", "action_on_fail": "flag_stale_pa" },
+  "R-PA-02":  { "name": "PA Denial Appeal Window", "type": "PA", "description": "PA denial must be appealed within 60 days of denial date", "action_on_fail": "flag_appeal_window" },
+  "R-BST-01": { "name": "Batch Order Size Cap", "type": "Operations", "description": "Batch uploads > 50 orders routed to order_management regardless of content", "action_on_fail": "route_to_order_management" }
+}

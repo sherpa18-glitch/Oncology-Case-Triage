@@ -1,0 +1,6 @@
+{
+  "P0_critical":  { "window_seconds": 900,   "label": "15 minutes",  "color": "#DC2626" },
+  "P1_urgent":    { "window_seconds": 3600,  "label": "60 minutes",  "color": "#D97706" },
+  "P2_standard":  { "window_seconds": 86400, "label": "24 hours",    "color": "#2563EB" },
+  "P3_routine":   { "window_seconds": 259200,"label": "72 hours",    "color": "#059669" }
+}
